@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export default class Order extends React.Component {
 
   render() {
-    const statusArr = ['PENDING', 'IN_MAKING', 'COMPLETED'];
-    const {orders, updateStatus} = this.props;
+    
+    const {orders, updateStatus, statusArr} = this.props;
     return (
       <div>
         
@@ -41,6 +41,7 @@ export default class Order extends React.Component {
 Order.propTypes = {
   orders: PropTypes.any, 
   updateStatus: PropTypes.func,
+  statusArr: PropTypes.array,
 };
 
 //ToDo: kiedy kliknie sie 'completed' usun ten order.

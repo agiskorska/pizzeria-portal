@@ -6,8 +6,9 @@ import Homepage from './components/views/Homepage/Homepage';
 import Login from './components/views/Login/Login';
 import AllBookingsContainer from './components/views/Bookings/AllBookings/AllBookingsContainer';
 import Booking from './components/views/Bookings/Booking/Booking';
-import AllOrders from './components/views/Orders/AllOrders/AllOrders';
 import OrderContainer from './components/views/Orders/Order/OrderContainer';
+import WaiterContainer from './components/views/Waiter/WaiterContainer';
+import Kitchen from './components/views/Kitchen/Kitchen';
 
 export default class App extends React.Component {
 
@@ -22,8 +23,9 @@ export default class App extends React.Component {
               <Route exact path={process.env.PUBLIC_URL + '/login'} component={Login} />
               <Route exact path={process.env.PUBLIC_URL + '/bookings'} component={AllBookingsContainer} />
               <Route exact path={process.env.PUBLIC_URL + '/bookings/:id'} component={Booking} />
-              <Route exact path={process.env.PUBLIC_URL + '/orders'} component={AllOrders} />
-              <Route exact path={process.env.PUBLIC_URL + '/orders/:id'} component={OrderContainer} />
+              <Route exact path={process.env.PUBLIC_URL + '/kitchen'} component={Kitchen} />
+              <Route exact path={process.env.PUBLIC_URL + 'waiter/order/:id'} component={OrderContainer} />
+              <Route exact path={process.env.PUBLIC_URL + '/waiter'} component={WaiterContainer} />
             </Switch>
           </MainLayout>
         </BrowserRouter>
