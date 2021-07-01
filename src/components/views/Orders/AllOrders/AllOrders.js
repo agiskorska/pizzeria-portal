@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 
 const demoContent = [
   {id: '1', hour: '12:05', orderId: 25, tableId: 1,  products: ['Coke ', 'Pizza'] },
-  {id: '2', hour: '12:15', orderId: 70, products: ['Fanta ', 'Salad'] },
+  {id: '2', hour: '12:15', orderId: 70, tableId: 2, products: ['Fanta ', 'Salad'] },
   {id: '3', hour: '12:30', orderId: 1, tableId: 3, products: ['water ', 'Pasta'] },
 ];
 

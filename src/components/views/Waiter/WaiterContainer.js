@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 import Waiter from './Waiter';
-import { getAll, fetchFromAPI, getLoadingState, changeApiStatus } from '../../../redux/tablesRedux';
+import { 
+  getAll,
+  fetchFromAPI, 
+  getLoadingState, 
+  changeApiStatus,
+} from '../../../redux/tablesRedux';
 
 const mapStateToProps = (state) => ({
   tables: getAll(state),

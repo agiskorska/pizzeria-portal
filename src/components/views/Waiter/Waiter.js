@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 class Waiter extends React.Component {
   static propTypes = {
@@ -85,11 +86,9 @@ class Waiter extends React.Component {
   }
 
   render() {
-    // eslint-disable-next-line react/prop-types
 
     const { loading: { active, error }, tables } = this.props;
 
-    // eslint-disable-next-line react/prop-types
     if(active || !tables.length){
       return (
         <Paper className={styles.component}>
@@ -127,9 +126,14 @@ class Waiter extends React.Component {
                   </TableCell>
                   <TableCell>
                     {row.orderId && (
-                      <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.orderId}`}>
+                      <Link  to={{
+                        pathname:  `${process.env.PUBLIC_URL}/waiter/order/${row.orderId}`,
+                        aboutProps: {
+                          orderId: row.orderId,
+                        },
+                      }}>
                         {row.orderId}
-                      </Button>
+                      </Link>
                     )}
                   </TableCell>
                   <TableCell>
@@ -147,5 +151,4 @@ class Waiter extends React.Component {
     }
   }
 }
-
 export default Waiter;

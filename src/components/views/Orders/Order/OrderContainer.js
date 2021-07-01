@@ -1,22 +1,23 @@
 import {connect} from 'react-redux';
 import Order from './Order';
-import {createActionUpdateStatus} from '../../../../redux/orderRedux';
+import {getAll, getLoadingState, fetchFromAPI} from '../../../../redux/tablesRedux';
+import { getLoadingOrdersState, getOrders, fetchOrderFromApi} from '../../../../redux/orderRedux';
+import { watiterOrderUrl } from '../../../../App';
 
 
 
-const mapStateToProps = (state, props) => {
-  return {
-    ...state,
-  };
-};
 
-const mapDispatchToProps = (dispatch, props) => ({
-  updateStatus: (id, status) => dispatch(createActionUpdateStatus(
-    {
-      id: id,
-      status: status,
-    }
-  )),
+
+const mapStateToProps = (state, props) => ({
+  tables: getAll(state),
+  loading: getLoadingState(state),
+  orders: getOrders(state),
+  ordersLoading: getLoadingOrdersState,
+  orderId: parseInt(props.location.pathname.slice(watiterOrderUrl.length+6)),
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchTables: () => dispatch(fetchFromAPI()),
+  fetchOrder: () => dispatch(fetchOrderFromApi()),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Order);

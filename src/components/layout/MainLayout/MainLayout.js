@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import PageNav from '../PageNav/PageNav';
 
 const MainLayout = props => {
-  console.log(props);
   return (
     <div>
       <PageNav />

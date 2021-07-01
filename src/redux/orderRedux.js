@@ -1,35 +1,74 @@
+import Axios from 'axios';
+import { api } from '../settings';
 
-// selectors
-export const getCurrentStatus = ({orders}) => orders.status === 'pending' ? 'in making' : 'completed';
 
-// action name creator
-const reducerName = 'orders';
+/* selectors */
+
+export const getOrders = ({orders}) => orders.data;
+export const getLoadingOrdersState = ({orders}) => orders.loading;
+
+/* action name creator */
+const reducerName = 'tables';
 const createActionName = name => `app/${reducerName}/${name}`;
 
-// action types
-export const UPDATE_STATUS = createActionName('UPDATE_STATUS');
-export const ADD_STATUS = createActionName('ADD_STATUS');
+/* action types */
+const FETCH_ORDER_START = createActionName('FETCH_ORDER_START');
+const FETCH_ORDER_SUCCESS = createActionName('FETCH_ORDER_SUCCESS');
+const FETCH_ORDER_ERROR = createActionName('FETCH_ORDER_ERROR');
 
-// action creators
-export const createActionUpdateStatus = payload => ({ payload: { ...payload, status: payload.status }, type: UPDATE_STATUS});
-export const createActionAddStatus = payload => ({ payload: { ...payload, status: getCurrentStatus }, type: ADD_STATUS});
+/* action creators */
+export const fetchOrderStarted = payload => ({ payload, type: FETCH_ORDER_START });
+export const fetchOrderSuccess = payload => ({ payload, type: FETCH_ORDER_SUCCESS });
+export const fetchOrderError = payload => ({ payload, type: FETCH_ORDER_ERROR });
 
-// reducer 
+/* thunk creators */
+export const fetchOrderFromApi = () => {
+  return (dispatch) => {
+    dispatch(fetchOrderStarted());
 
+    Axios
+      .get(`${api.url}/api/${api.order}`)
+      .then(res => {
+        dispatch(fetchOrderSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(fetchOrderError(err.message || true));
+      });
+  };
+};
+
+
+/* reducer */
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {
-    case UPDATE_STATUS:
-      return (
-        statePart.map(order => {
-          if(order.id === action.payload.id) {
-            return {...order, status: action.payload.status+1};
-          } 
-          else 
-          {
-            return order;
-          } 
-        })
-      );
+    case FETCH_ORDER_START: {
+      return {
+        ...statePart,
+        loading: {
+          active: true,
+          error: false,
+        },
+      };
+    }
+    case FETCH_ORDER_SUCCESS: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: false,
+        },
+        data: action.payload,
+      };
+    }
+    case FETCH_ORDER_ERROR: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: action.payload,
+        },
+      };
+    }
     default:
       return statePart;
   }

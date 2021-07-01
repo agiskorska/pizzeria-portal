@@ -3,3 +3,20 @@
 .component {
   padding: $base-size;
 }
+
+.root {
+  min-width: 275;
+
+}
+
+.bullet {
+  margin: 0 2px;
+  transform: scale(0.25px);
+}
+.title {
+  font-size: 14;
+}
+.pos {
+  margin-bottom: 12;
+}
+
